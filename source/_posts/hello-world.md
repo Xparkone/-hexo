@@ -1,38 +1,31 @@
 ---
-title: Hello World
+title: 欢迎来到 Xpark's Space
+date: 2026-07-30 19:30:00
+description: 这是这个空间的第一篇文章，也是一次关于记录、分享与持续创造的开始。
+categories:
+  - 随笔
+tags:
+  - Hexo
+  - 开始
 ---
-Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
-## Quick Start
+欢迎来到我的个人空间。
 
-### Create a new post
+这里会记录技术探索中的收获、偶尔闪现的灵感，以及值得被保存的生活片段。比起追求更新频率，我更希望每一篇文字都能留下真实的思考。
 
-``` bash
-$ hexo new "My New Post"
-```
+## 为什么开始记录
 
-More info: [Writing](https://hexo.io/docs/writing.html)
+写作是整理思绪的过程。那些在脑海中模糊的想法，只有真正落到文字里，才会逐渐变得清晰。
 
-### Run server
+这个空间也会是我的数字花园：内容不一定完美，但会随着认知不断生长。
 
-``` bash
-$ hexo server
-```
+## 这里会有什么
 
-More info: [Server](https://hexo.io/docs/server.html)
+- 技术实践与踩坑记录
+- 有趣工具和开源项目分享
+- 关于效率、设计与生活的思考
+- 正在学习的新知识
 
-### Generate static files
+## 保持联系
 
-``` bash
-$ hexo generate
-```
-
-More info: [Generating](https://hexo.io/docs/generating.html)
-
-### Deploy to remote sites
-
-``` bash
-$ hexo deploy
-```
-
-More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
+感谢你的到来。希望这里的某一篇内容，恰好能带给你一点启发。
