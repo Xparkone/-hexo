@@ -116,4 +116,11 @@
       { passive: true },
     )
   }
+
+  const timelineItems = document.querySelectorAll(
+    '.timeline-archive .archive-post-item',
+  )
+  timelineItems.forEach((item, index) => {
+    item.style.setProperty('--timeline-index', String(index))
+  })
 })()
