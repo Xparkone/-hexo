@@ -71,4 +71,19 @@
             </div>
         <%_ }) _%>
     <%_ } _%>
+    <%_ var profileQuotesEnabled = theme.home_quotes && theme.home_quotes.enable && theme.home_quotes.items && theme.home_quotes.items.length _%>
+    <%_ if (profileQuotesEnabled) { _%>
+        <%_ var firstQuote = theme.home_quotes.items[0] || [] _%>
+        <%_ if (!Array.isArray(firstQuote)) { firstQuote = [firstQuote] } _%>
+        <div
+            class="quote-stage profile-quote-stage"
+            id="home-quote-stage"
+            data-interval="<%- theme.home_quotes.interval || 6500 %>"
+            aria-live="polite"
+        >
+            <script type="application/json" id="home-quote-data"><%- JSON.stringify(theme.home_quotes.items) %></script>
+            <p class="quote-line" data-line="0"><%- firstQuote[0] || '' %></p>
+            <p class="quote-line" data-line="1"<%- firstQuote[1] ? '' : ' hidden' %>><%- firstQuote[1] || '' %></p>
+        </div>
+    <%_ } _%>
 </div>

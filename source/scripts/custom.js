@@ -3,7 +3,6 @@
 
   const root = document.documentElement
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  const finePointer = window.matchMedia('(pointer: fine)').matches
 
   const syncThemeClass = () => {
     root.classList.toggle(
@@ -15,112 +14,113 @@
   syncThemeClass()
   new MutationObserver(syncThemeClass).observe(document.head, { childList: true })
 
-  const grain = document.createElement('div')
-  grain.className = 'premium-grain'
-  grain.setAttribute('aria-hidden', 'true')
-  document.body.appendChild(grain)
+  const initHomeQuotes = () => {
+    const stage = document.getElementById('home-quote-stage')
+    if (!stage) return
 
-  const intro = document.querySelector('.site-intro')
-  if (intro) {
-    const cue = document.createElement('div')
-    cue.className = 'premium-scroll-cue'
-    cue.textContent = 'Scroll'
-    cue.setAttribute('aria-hidden', 'true')
-    intro.appendChild(cue)
-  }
-
-  if (!reduceMotion) {
-    root.classList.add('motion-ready')
-
-    const revealTargets = [
-      ...document.querySelectorAll('.index-post, .profile'),
-      ...document.querySelectorAll('.article-entry > *'),
-    ]
-
-    revealTargets.forEach((element, index) => {
-      element.classList.add('premium-reveal')
-      element.style.setProperty('--reveal-delay', `${Math.min(index % 6, 5) * 70}ms`)
-    })
-
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return
-          entry.target.classList.add('is-visible')
-          observer.unobserve(entry.target)
-        })
-      },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
-    )
-
-    revealTargets.forEach((element) => revealObserver.observe(element))
-
-    let scrollTicking = false
-    const updateHero = () => {
-      if (intro && window.scrollY < intro.offsetHeight + 200) {
-        intro.style.setProperty(
-          '--hero-shift',
-          `${Math.min(window.scrollY * 0.13, 80)}px`,
-        )
-      }
-      scrollTicking = false
+    let quotes = []
+    try {
+      const dataNode = document.getElementById('home-quote-data')
+      quotes = JSON.parse(dataNode ? dataNode.textContent : '[]')
+    } catch (_) {
+      quotes = []
     }
 
-    window.addEventListener(
-      'scroll',
-      () => {
-        if (scrollTicking) return
-        scrollTicking = true
-        window.requestAnimationFrame(updateHero)
-      },
-      { passive: true },
-    )
+    quotes = quotes
+      .map((item) => (Array.isArray(item) ? item.filter(Boolean) : [String(item)]))
+      .filter((item) => item.length)
+
+    if (!quotes.length) return
+
+    const lines = [...stage.querySelectorAll('.quote-line')]
+    const interval = Math.max(Number(stage.dataset.interval) || 6500, 3200)
+    let index = 0
+    let timer = null
+
+    const showQuote = (quoteIndex) => {
+      const quote = quotes[quoteIndex]
+      stage.classList.add('is-ready')
+      lines.forEach((line, lineIndex) => {
+        line.classList.remove('is-in', 'is-out')
+        const text = quote[lineIndex] || ''
+        line.textContent = text
+        line.hidden = !text
+        line.style.setProperty('--line-index', String(lineIndex))
+        if (!text) return
+        // force reflow so enter animation retriggers
+        void line.offsetWidth
+        line.classList.add('is-in')
+      })
+      stage.dataset.index = String(quoteIndex)
+    }
+
+    // SSR fallback: show first quote immediately even before animation
+    if (quotes[0]) {
+      lines.forEach((line, lineIndex) => {
+        const text = quotes[0][lineIndex] || ''
+        line.textContent = text
+        line.hidden = !text
+      })
+    }
+
+    const nextQuote = () => {
+      if (reduceMotion || quotes.length === 1) {
+        index = (index + 1) % quotes.length
+        showQuote(index)
+        return
+      }
+
+      lines.forEach((line) => {
+        if (!line.hidden) line.classList.add('is-out')
+      })
+
+      window.setTimeout(() => {
+        index = (index + 1) % quotes.length
+        showQuote(index)
+      }, 420)
+    }
+
+    showQuote(0)
+
+    if (quotes.length > 1) {
+      timer = window.setInterval(nextQuote, interval)
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          window.clearInterval(timer)
+          timer = null
+          return
+        }
+        if (!timer) timer = window.setInterval(nextQuote, interval)
+      })
+    }
   }
 
-  document.querySelectorAll('.index-post').forEach((card) => {
-    card.addEventListener(
-      'pointermove',
-      (event) => {
-        const rect = card.getBoundingClientRect()
-        card.style.setProperty('--card-x', `${event.clientX - rect.left}px`)
-        card.style.setProperty('--card-y', `${event.clientY - rect.top}px`)
-      },
-      { passive: true },
-    )
+  initHomeQuotes()
+
+  if (reduceMotion) return
+
+  root.classList.add('motion-ready')
+
+  const revealTargets = [
+    ...document.querySelectorAll('.index-post, .profile'),
+    ...document.querySelectorAll('.article-entry > *'),
+  ]
+
+  revealTargets.forEach((element, index) => {
+    element.classList.add('premium-reveal')
+    element.style.setProperty('--reveal-delay', `${Math.min(index % 6, 5) * 40}ms`)
   })
 
-  if (finePointer && !reduceMotion) {
-    const glow = document.createElement('div')
-    glow.className = 'premium-glow'
-    glow.setAttribute('aria-hidden', 'true')
-    document.body.appendChild(glow)
-
-    let cursorTicking = false
-    let cursorX = -500
-    let cursorY = -500
-
-    window.addEventListener(
-      'pointermove',
-      (event) => {
-        cursorX = event.clientX
-        cursorY = event.clientY
-        if (cursorTicking) return
-
-        cursorTicking = true
-        window.requestAnimationFrame(() => {
-          glow.style.setProperty('--cursor-x', `${cursorX}px`)
-          glow.style.setProperty('--cursor-y', `${cursorY}px`)
-          cursorTicking = false
-        })
-      },
-      { passive: true },
-    )
-  }
-
-  const timelineItems = document.querySelectorAll(
-    '.timeline-archive .archive-post-item',
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return
+        entry.target.classList.add('is-visible')
+        observer.unobserve(entry.target)
+      })
+    },
+    { rootMargin: '0px 0px -6% 0px', threshold: 0.06 },
   )
-  timelineItems.forEach((item, index) => {
-    item.style.setProperty('--timeline-index', String(index))
-  })
+
+  revealTargets.forEach((element) => revealObserver.observe(element))
 })()

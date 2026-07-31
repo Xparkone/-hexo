@@ -54,14 +54,38 @@ site_header_image: /intro/index-bg.jpg
 post_header_image: /intro/post-bg.jpg
 _404_image: /intro/404-bg.jpg
 
+# Homepage dynamic quotes (名言名句轮播)
+home_quotes:
+  enable: true
+  interval: 6500
+  items:
+    -
+      - 尘劳迥脱事非常，紧把绳头做一场。
+      - 不经一番寒彻骨，怎得梅花扑鼻香。
+    -
+      - 路漫漫其修远兮，吾将上下而求索。
+    -
+      - 天行健，君子以自强不息。
+      - 地势坤，君子以厚德载物。
+    -
+      - 博观而约取，厚积而薄发。
+    -
+      - 纸上得来终觉浅，绝知此事要躬行。
+    -
+      - 天下难事，必作于易；天下大事，必作于细。
+    -
+      - 凡是过往，皆为序章。
+    -
+      - 保持好奇，持续创造。
+
 truncate_length: 220
 read_more_button: true
 toc: true
 reading_info: true
-index_intro_height: 65
-post_intro_height: 55
-about_intro_height: 55
-float_button_theme: rounded
+index_intro_height: 38
+post_intro_height: 32
+about_intro_height: 32
+float_button_theme: default
 read_progress_color: feature
 post_banner_theme: clean
 avatar_border: true
