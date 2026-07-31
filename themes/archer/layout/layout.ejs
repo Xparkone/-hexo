@@ -52,6 +52,7 @@
         <%- partial('_partial/custom-font', {}, {cache: true}) %>
         <!-- main func -->
         <script src="<%- url_for('scripts/main.js') %>"></script>
+        <script src="<%- url_for('scripts/custom.js') %>" defer></script>
         <!-- fancybox -->
         <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.js" onload="window.Fancybox.bind('[data-fancybox]')" defer></script>
         <!-- algolia -->
