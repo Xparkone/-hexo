@@ -1,0 +1,77 @@
+# Archer theme overrides
+
+avatar: /avatar/Misaka.jpg
+author: Xpark
+signature: 记录技术、灵感与生活
+
+social:
+  email:
+  github: //github.com/xparkone
+  wechat:
+  qq:
+  telegram:
+  weibo:
+  zhihu:
+  douban:
+  facebook:
+  twitter:
+  instagram:
+  stack-overflow:
+  segmentFault:
+  juejin:
+  v2ex:
+  bilibili:
+  linkedin:
+  steam:
+  others:
+  rss:
+
+about:
+  enable: true
+  image: /intro/about-bg.jpg
+
+search:
+  enable: false
+  url:
+  engine: bing
+
+profile_icons:
+  enable: true
+  friends: fas fa-heart
+  about: fas fa-id-card
+  search: fas fa-search
+
+SEO_title: Xpark's Space
+SEO_keywords:
+  - 技术
+  - 编程
+  - 生活
+  - Hexo
+
+main_title: Xpark's Space.
+subtitle: 保持好奇，持续创造
+site_header_image: /intro/index-bg.jpg
+post_header_image: /intro/post-bg.jpg
+_404_image: /intro/404-bg.jpg
+
+truncate_length: 220
+read_more_button: true
+toc: true
+reading_info: true
+index_intro_height: 65
+post_intro_height: 55
+about_intro_height: 55
+float_button_theme: rounded
+read_progress_color: feature
+post_banner_theme: clean
+avatar_border: true
+profile_sticky: true
+show_categories: true
+
+busuanzi: false
+
+copyright:
+  enable: true
+  license: 本文采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> 许可协议
+
+favicon: /assets/favicon.ico

@@ -100,7 +100,27 @@ ignore: []
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: butterfly
+theme: archer
+
+# Archer sidebar index
+jsonContent:
+  meta: true
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: true
+    excerpt: false
+    categories: true
+    tags: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
